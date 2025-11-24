@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kandexa AI Assistant</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Giriş modalı -->
+    <div id="login-modal" class="modal-backdrop">
+      <div class="modal">
+        <h2>Kandexa AI</h2>
+        <p>Devam etmeden önce adını ve istersen e-posta adresini yaz.</p>
+        <form id="login-form" class="login-form">
+          <label>
+            Adın
+            <input type="text" id="login-name" required placeholder="Örn: Celil" />
+          </label>
+          <label>
+            E-posta (opsiyonel)
+            <input
+              type="email"
+              id="login-email"
+              placeholder="örnek@mail.com"
+            />
+          </label>
+          <button type="submit">Giriş yap</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="layout">
+      <!-- SOL: Sohbet listesi -->
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <button id="new-chat" class="sidebar-new">+ Yeni sohbet</button>
+
+          <nav class="sidebar-nav">
+            <div class="nav-section">
+              <div class="nav-title">Sohbetlerin</div>
+              <div id="conversation-list" class="conversation-list">
+                <div class="empty-state">Henüz kayıtlı sohbet yok.</div>
+              </div>
+            </div>
+
+            <div class="nav-section">
+              <div class="nav-title">İpuçları</div>
+              <ul class="tips">
+                <li>“Kontrol & otomasyon alanında portföy fikri üret.”</li>
+                <li>“Bu metni PDF özeti yap.”</li>
+                <li>“Güneş paneli verimini artıran yöntemleri slayt halinde yaz.”</li>
+                <li>“Bu fotoğrafta ne görüyorsun?” (görsel yükle)</li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="user-pill">
+            <div class="user-avatar" id="user-avatar">U</div>
+            <div class="user-info">
+              <div class="user-name" id="user-name-display">Misafir</div>
+              <div class="user-plan">Kandexa AI • Developer</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- SAĞ: Chat alanı -->
+      <main class="main">
+        <header class="main-header">
+          <div class="logo">
+            Kandexa AI
+            <span class="logo-badge">beta</span>
+          </div>
+          <button id="profile-btn" class="profile-btn">Profil / Giriş</button>
+        </header>
+
+        <section class="main-inner">
+          <div id="intro" class="intro">
+            <h1>Hoşgeldin. Nasıl yardımcı olabilirim ?</h1>
+            
+          </div>
+
+          <div id="chat" class="chat"></div>
+
+          <div id="scroll-bottom" class="scroll-bottom-btn">En alta in</div>
+
+          <!-- Mesaj barı -->
+          <form id="chat-form" class="chat-form">
+            <div class="input-shell">
+              <button
+                type="button"
+                id="attach-image"
+                class="icon-btn"
+                title="Fotoğraf çek veya galeriden seç"
+              >
+                📷
+              </button>
+
+              <textarea
+                id="user-input"
+                placeholder="Herhangi bir şey sor..."
+                rows="1"
+              ></textarea>
+
+              <button
+                type="button"
+                class="icon-btn"
+                id="voice-placeholder"
+                title="(Şimdilik ses desteği yok)"
+              >
+                🎙
+              </button>
+              <button type="submit" id="send-btn" class="icon-btn">
+                ➤
+              </button>
+            </div>
+            <div class="input-footer">
+              <span id="image-label" class="image-label">
+                Görsel yok (telefonlarda kamera veya galeriden seçebilirsin)
+              </span>
+              <button type="button" id="export-pdf" class="tiny-btn">
+                Sohbeti PDF indir
+              </button>
+            </div>
+
+            <!-- Gizli file input (kamera + galeri) -->
+            <input
+              type="file"
+              id="image-input"
+              accept="image/*"
+              capture="environment"
+              hidden
+            />
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <!-- jsPDF (PDF indirme için) -->
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
