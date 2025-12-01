@@ -1,4 +1,3 @@
-// server.js - Kandexa AI backend (CommonJS)
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -18,10 +17,8 @@ if (!OPENAI_API_KEY) {
 app.use(cors());
 app.use(express.json({ limit: "5mb" }));
 
-// public klasörünü statik olarak sun
 app.use(express.static(path.join(__dirname, "public")));
 
-// Ana chat endpoint'i
 app.post("/api/chat", async (req, res) => {
   try {
     const { message, imageBase64, userName } = req.body;
@@ -34,7 +31,6 @@ app.post("/api/chat", async (req, res) => {
 
     const text = message || "";
 
-    // --- Basit otomatik mod tespiti ---
     let detectedMode = "chat";
 
     if (imageBase64) {
@@ -45,7 +41,6 @@ app.post("/api/chat", async (req, res) => {
       detectedMode = "pdf";
     }
 
-    // --- Sistem mesajı ---
     let systemContent =
       "You are Kandexa AI, a helpful and honest assistant. " +
       "Always answer in the same language as the user. " +
@@ -68,7 +63,6 @@ app.post("/api/chat", async (req, res) => {
         "Kullanıcının yüklediği görseli ayrıntılı ve anlaşılır şekilde analiz et, sorusuna göre cevap ver.";
     }
 
-    // --- Mesaj gövdesi ---
     let messages;
 
     if (imageBase64 && detectedMode === "vision") {
@@ -97,7 +91,6 @@ app.post("/api/chat", async (req, res) => {
       ];
     }
 
-    // --- OpenAI Chat Completions çağrısı ---
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
